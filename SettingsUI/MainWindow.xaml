@@ -1,0 +1,55 @@
+﻿<Window x:Class="SettingsUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:views="clr-namespace:SettingsUI.Views"
+        xmlns:vm="clr-namespace:SettingsUI.ViewModels"
+        xmlns:ui="clr-namespace:SettingsUI.Resources"
+        mc:Ignorable="d"
+        Title="{x:Static ui:Strings.WindowTitle}"
+        Height="560" Width="760"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="0" Margin="12,12,12,0">
+            <TabItem Header="{x:Static ui:Strings.TabDatabase}">
+                <views:DatabaseTabView DataContext="{Binding Database}" Loaded="DatabaseTabView_Loaded" />
+            </TabItem>
+            <TabItem Header="{x:Static ui:Strings.TabBatch}">
+                <views:BatchTabView DataContext="{Binding Batch}" />
+            </TabItem>
+            <TabItem Header="{x:Static ui:Strings.TabLogging}">
+                <views:LoggingTabView DataContext="{Binding Logging}" />
+            </TabItem>
+            <TabItem Header="{x:Static ui:Strings.TabService}">
+                <views:ServiceTabView DataContext="{Binding Service}" />
+            </TabItem>
+        </TabControl>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right"
+                    Margin="12,12,12,6">
+            <Button Content="{x:Static ui:Strings.ButtonReload}"
+                    Command="{Binding ReloadCommand}"
+                    Padding="16,4" Margin="0,0,8,0" />
+            <Button Content="{x:Static ui:Strings.ButtonSave}"
+                    Command="{Binding SaveCommand}"
+                    Padding="16,4" />
+        </StackPanel>
+
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusMessage}" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

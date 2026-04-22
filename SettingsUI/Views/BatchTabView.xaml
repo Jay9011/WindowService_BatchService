@@ -1,0 +1,43 @@
+<UserControl x:Class="SettingsUI.Views.BatchTabView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="clr-namespace:SettingsUI.Resources"
+             mc:Ignorable="d"
+             d:DesignHeight="280" d:DesignWidth="520">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static ui:Strings.LabelProcedureName}" VerticalAlignment="Center" />
+        <TextBox   Grid.Row="0" Grid.Column="1" Margin="0,4"
+                   Text="{Binding ProcedureName, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static ui:Strings.LabelPollingInterval}" VerticalAlignment="Center" />
+        <TextBox   Grid.Row="1" Grid.Column="1" Margin="0,4"
+                   Text="{Binding PollingIntervalText, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,4" Foreground="Gray" FontSize="11"
+                   Text="{x:Static ui:Strings.HintPollingIntervalFormat}" />
+
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0,12,0,0">
+            <Button Content="{x:Static ui:Strings.ButtonLoadBatchList}"
+                    Command="{Binding LoadBatchListCommand}"
+                    Padding="12,4" />
+            <TextBlock Text="{Binding LoadResult}"
+                       VerticalAlignment="Center"
+                       Margin="12,0,0,0"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+    </Grid>
+</UserControl>

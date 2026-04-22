@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="SettingsUI.Views.DatabaseTabView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:behaviors="clr-namespace:SettingsUI.Behaviors"
+             xmlns:ui="clr-namespace:SettingsUI.Resources"
+             xmlns:cm="clr-namespace:Utility.Resources;assembly=Utility"
+             mc:Ignorable="d"
+             d:DesignHeight="360" d:DesignWidth="520">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static cm:Strings.LabelServer}" VerticalAlignment="Center" />
+        <TextBox   Grid.Row="0" Grid.Column="1" Margin="0,4" Text="{Binding Server, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static cm:Strings.LabelPort}" VerticalAlignment="Center" />
+        <TextBox   Grid.Row="1" Grid.Column="1" Margin="0,4" Text="{Binding Port, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" />
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static cm:Strings.LabelDatabase}" VerticalAlignment="Center" />
+        <TextBox   Grid.Row="2" Grid.Column="1" Margin="0,4" Text="{Binding Database, UpdateSourceTrigger=PropertyChanged}" />
+
+        <CheckBox  Grid.Row="3" Grid.Column="1" Margin="0,8"
+                   Content="{x:Static cm:Strings.LabelIntegratedSecurity}"
+                   IsChecked="{Binding IntegratedSecurity}" />
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="{x:Static cm:Strings.LabelUserId}" VerticalAlignment="Center" />
+        <TextBox   Grid.Row="4" Grid.Column="1" Margin="0,4"
+                   IsEnabled="{Binding IntegratedSecurity, Converter={StaticResource InverseBooleanConverter}}"
+                   Text="{Binding UserId, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="{x:Static cm:Strings.LabelPassword}" VerticalAlignment="Center" />
+        <PasswordBox Grid.Row="5" Grid.Column="1" Margin="0,4"
+                     IsEnabled="{Binding IntegratedSecurity, Converter={StaticResource InverseBooleanConverter}}"
+                     behaviors:PasswordBoxBindingBehavior.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Margin="0,12">
+            <Button Content="{x:Static cm:Strings.TestConnection}"
+                    Command="{Binding TestConnectionCommand}" Padding="16,4" />
+            <TextBlock Margin="12,0,0,0" VerticalAlignment="Center"
+                       Text="{Binding TestResult}" TextWrapping="Wrap" />
+        </StackPanel>
+    </Grid>
+</UserControl>
