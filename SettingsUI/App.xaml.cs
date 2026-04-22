@@ -1,6 +1,9 @@
 ﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
+using System.Windows.Threading;
+using Serilog;
+using Utility.Logging;
 using Utility.Settings;
 using UiStrings = SettingsUI.Resources.Strings;
 using CommonStrings = Utility.Resources.Strings;
@@ -66,11 +69,51 @@ public partial class App : Application
             return;
         }
 
+        // ================================================
+        // ==> Serilog (shared with BatchService under ProgramData\...\Logs)
+        // ================================================
+        try
+        {
+            SerilogBootstrap.Initialize("settingsui");
+            Log.Information("SettingsUI started");
+
+            DispatcherUnhandledException += OnDispatcherUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += OnDomainUnhandledException;
+            TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
+        }
+        catch (Exception ex)
+        {
+            // Logging must never take the UI down; just surface the failure and continue.
+            MessageBox.Show(
+                ex.Message,
+                UiStrings.TitleError,
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+        }
+        // ================================================
+        // <== Serilog
+        // ================================================
+
         base.OnStartup(e);
     }
 
     protected override void OnExit(ExitEventArgs e)
     {
+        DispatcherUnhandledException -= OnDispatcherUnhandledException;
+        AppDomain.CurrentDomain.UnhandledException -= OnDomainUnhandledException;
+        TaskScheduler.UnobservedTaskException -= OnUnobservedTaskException;
+
+        try
+        {
+            Log.Information("SettingsUI exiting (code={ExitCode})", e.ApplicationExitCode);
+        }
+        catch
+        {
+            // ignored
+        }
+
+        SerilogBootstrap.Shutdown();
+
         if (_singleInstanceMutex != null)
         {
             try
@@ -91,5 +134,24 @@ public partial class App : Application
         }
 
         base.OnExit(e);
+    }
+
+    private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        Log.Error(e.Exception, "Unhandled UI exception");
+    }
+
+    private static void OnDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        if (e.ExceptionObject is Exception ex)
+        {
+            Log.Fatal(ex, "Unhandled AppDomain exception (terminating={Terminating})", e.IsTerminating);
+        }
+    }
+
+    private static void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
+    {
+        Log.Error(e.Exception, "Unobserved task exception");
+        e.SetObserved();
     }
 }

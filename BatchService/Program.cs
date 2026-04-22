@@ -1,6 +1,8 @@
 ﻿using System.Globalization;
 using BatchService;
+using Serilog;
 using Utility.Common;
+using Utility.Logging;
 using Utility.Security;
 using Utility.Settings;
 
@@ -35,6 +37,9 @@ if (args is { Length: > 0 })
     builder.Configuration.AddCommandLine(args);
 }
 
+SerilogBootstrap.Initialize("batchservice", builder.Configuration);
+builder.Services.AddSerilog(Log.Logger, dispose: true);
+
 // ================================================
 // ==> Add Windows Service
 // ================================================
@@ -65,5 +70,19 @@ builder.Services.PostConfigure<BatchServiceOptions>(options =>
 
 builder.Services.AddHostedService<Worker>();
 
-var host = builder.Build();
-host.Run();
+try
+{
+    var host = builder.Build();
+    Log.Information("BatchService starting (env={Environment}, configDir={ConfigDir})",
+        ConfigPaths.IsDevelopment ? "Development" : "Production", configDirectory);
+    host.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "BatchService terminated unexpectedly");
+    throw;
+}
+finally
+{
+    SerilogBootstrap.Shutdown();
+}

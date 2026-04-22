@@ -75,5 +75,38 @@ namespace Utility.Settings
 
             return directory;
         }
+
+        /// <summary>
+        /// Returns the log directory co-located with the configuration directory.
+        /// Both BatchService and SettingsUI use the same ProgramData root so log files
+        /// inherit the same ACLs as appsettings.json.
+        /// </summary>
+        public static string GetLogsDirectory()
+        {
+            return Path.Combine(GetConfigDirectory(), Keys.Key_LogsFolder);
+        }
+
+        /// <summary>
+        /// Ensures the log directory exists. Call this before initializing Serilog
+        /// so the first write does not fail when ProgramData subfolder has not been created yet.
+        /// </summary>
+        public static string EnsureLogsDirectoryExists()
+        {
+            var directory = GetLogsDirectory();
+
+            try
+            {
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new IOException(Resources.Strings.ErrorConfigDirCreate + ": " + directory, ex);
+            }
+
+            return directory;
+        }
     }
 }

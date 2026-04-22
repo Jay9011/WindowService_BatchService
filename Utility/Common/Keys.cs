@@ -20,6 +20,12 @@
         public const string Key_ProductFolder = "BatchService";
 
         /// <summary>
+        /// Subfolder under the product directory where log files are written.
+        /// Final path: %ProgramData%\{Key_Company}\{Key_ProductFolder}\{Key_LogsFolder}\
+        /// </summary>
+        public const string Key_LogsFolder = "Logs";
+
+        /// <summary>
         /// Service Name Key
         /// </summary>
         public const string Key_ServiceName = "SECUiDEA.BatchService";
