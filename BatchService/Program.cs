@@ -1,8 +1,7 @@
 ﻿using System.Globalization;
 using BatchService;
-using BatchService.Repository.Abstraction.Batch;
 using BatchService.Repository.Batch;
-using BatchService.Services;
+using BatchService.Services.Batch;
 using Serilog;
 using Utility.Common;
 using Utility.Logging;

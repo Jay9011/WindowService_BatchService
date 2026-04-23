@@ -61,6 +61,132 @@ namespace Utility.Resources {
         }
         
         /// <summary>
+        ///   {0} row(s) returned과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string BatchListLoadedFormat {
+            get {
+                return ResourceManager.GetString("BatchListLoadedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cancel과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ButtonCancel {
+            get {
+                return ResourceManager.GetString("ButtonCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Load Batch List과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ButtonLoadBatchList {
+            get {
+                return ResourceManager.GetString("ButtonLoadBatchList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reload과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ButtonReload {
+            get {
+                return ResourceManager.GetString("ButtonReload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Restart과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ButtonRestart {
+            get {
+                return ResourceManager.GetString("ButtonRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ButtonSave {
+            get {
+                return ResourceManager.GetString("ButtonSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Start과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ButtonStart {
+            get {
+                return ResourceManager.GetString("ButtonStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Stop과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ButtonStop {
+            get {
+                return ResourceManager.GetString("ButtonStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Description과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ColumnDescription {
+            get {
+                return ResourceManager.GetString("ColumnDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Name과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ColumnDisplayName {
+            get {
+                return ResourceManager.GetString("ColumnDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Enabled과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ColumnIsEnabled {
+            get {
+                return ResourceManager.GetString("ColumnIsEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Result과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ColumnLastResult {
+            get {
+                return ResourceManager.GetString("ColumnLastResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Last Run과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ColumnLastRunAt {
+            get {
+                return ResourceManager.GetString("ColumnLastRunAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Procedure과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ColumnProcedureName {
+            get {
+                return ResourceManager.GetString("ColumnProcedureName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Saved Batches: {0}과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string DatabaseBatchSizeText {
@@ -115,11 +241,47 @@ namespace Utility.Resources {
         }
         
         /// <summary>
+        ///   1-64 (default 4)과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string HintMaxConcurrency {
+            get {
+                return ResourceManager.GetString("HintMaxConcurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Polling Interval Format (hh:mm:ss)과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string HintPollingIntervalFormat {
+            get {
+                return ResourceManager.GetString("HintPollingIntervalFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Database과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string LabelDatabase {
             get {
                 return ResourceManager.GetString("LabelDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Default Log Level과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LabelDefaultLogLevel {
+            get {
+                return ResourceManager.GetString("LabelDefaultLogLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Hosting Lifetime Log Level과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LabelHostingLifetimeLogLevel {
+            get {
+                return ResourceManager.GetString("LabelHostingLifetimeLogLevel", resourceCulture);
             }
         }
         
@@ -133,11 +295,29 @@ namespace Utility.Resources {
         }
         
         /// <summary>
+        ///   Max Concurrent Batches과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LabelMaxConcurrency {
+            get {
+                return ResourceManager.GetString("LabelMaxConcurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Password과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string LabelPassword {
             get {
                 return ResourceManager.GetString("LabelPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Polling Interval과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LabelPollingInterval {
+            get {
+                return ResourceManager.GetString("LabelPollingInterval", resourceCulture);
             }
         }
         
@@ -151,6 +331,15 @@ namespace Utility.Resources {
         }
         
         /// <summary>
+        ///   Procedure Name과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LabelProcedureName {
+            get {
+                return ResourceManager.GetString("LabelProcedureName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Server과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string LabelServer {
@@ -160,11 +349,146 @@ namespace Utility.Resources {
         }
         
         /// <summary>
+        ///   Service Status과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LabelServiceStatus {
+            get {
+                return ResourceManager.GetString("LabelServiceStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   User ID과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string LabelUserId {
             get {
                 return ResourceManager.GetString("LabelUserId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Critical과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LogLevelCritical {
+            get {
+                return ResourceManager.GetString("LogLevelCritical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Debug과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LogLevelDebug {
+            get {
+                return ResourceManager.GetString("LogLevelDebug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LogLevelError {
+            get {
+                return ResourceManager.GetString("LogLevelError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Information과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LogLevelInformation {
+            get {
+                return ResourceManager.GetString("LogLevelInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Trace과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LogLevelTrace {
+            get {
+                return ResourceManager.GetString("LogLevelTrace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Warning과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LogLevelWarning {
+            get {
+                return ResourceManager.GetString("LogLevelWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Duplicate Instance과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MessageDuplicateInstance {
+            get {
+                return ResourceManager.GetString("MessageDuplicateInstance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   You do not have administrator과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MessageNotAdmin {
+            get {
+                return ResourceManager.GetString("MessageNotAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reload Done과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MessageReloadDone {
+            get {
+                return ResourceManager.GetString("MessageReloadDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save Failed과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MessageSaveFailed {
+            get {
+                return ResourceManager.GetString("MessageSaveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save Success과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MessageSaveSuccess {
+            get {
+                return ResourceManager.GetString("MessageSaveSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Worker will reload과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MessageWorkerWillReload {
+            get {
+                return ResourceManager.GetString("MessageWorkerWillReload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failure과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ResultFailure {
+            get {
+                return ResourceManager.GetString("ResultFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Success과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ResultSuccess {
+            get {
+                return ResourceManager.GetString("ResultSuccess", resourceCulture);
             }
         }
         
@@ -241,6 +565,42 @@ namespace Utility.Resources {
         }
         
         /// <summary>
+        ///   Batch과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string TabBatch {
+            get {
+                return ResourceManager.GetString("TabBatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Database과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string TabDatabase {
+            get {
+                return ResourceManager.GetString("TabDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Log과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string TabLogging {
+            get {
+                return ResourceManager.GetString("TabLogging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Service과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string TabService {
+            get {
+                return ResourceManager.GetString("TabService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Connection Test과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string TestConnection {
@@ -273,6 +633,114 @@ namespace Utility.Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Confirm과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string TitleConfirm {
+            get {
+                return ResourceManager.GetString("TitleConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string TitleError {
+            get {
+                return ResourceManager.GetString("TitleError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Info과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string TitleInfo {
+            get {
+                return ResourceManager.GetString("TitleInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please enter the correct database information과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ValidationDatabaseRequired {
+            get {
+                return ResourceManager.GetString("ValidationDatabaseRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Max concurrency must be an integer between 1 and 64과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ValidationMaxConcurrencyRange {
+            get {
+                return ResourceManager.GetString("ValidationMaxConcurrencyRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please enter the correct password과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ValidationPasswordRequired {
+            get {
+                return ResourceManager.GetString("ValidationPasswordRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please check the interval Format과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ValidationPollingIntervalFormat {
+            get {
+                return ResourceManager.GetString("ValidationPollingIntervalFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please enter the correct port number과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ValidationPortRange {
+            get {
+                return ResourceManager.GetString("ValidationPortRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please check the procedure name과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ValidationProcedureNameRequired {
+            get {
+                return ResourceManager.GetString("ValidationProcedureNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please enter the correct server information과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ValidationServerRequired {
+            get {
+                return ResourceManager.GetString("ValidationServerRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please enter the correct user id과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ValidationUserIdRequired {
+            get {
+                return ResourceManager.GetString("ValidationUserIdRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SECUiDEA Batch Setting과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string WindowTitle {
+            get {
+                return ResourceManager.GetString("WindowTitle", resourceCulture);
             }
         }
     }

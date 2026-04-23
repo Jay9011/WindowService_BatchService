@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using CoreDAL.Configuration;
 using Utility.Abstractions.Services;
+using Utility.Batch;
 using Utility.Settings;
 
 namespace Utility.DataAccess
@@ -54,7 +56,7 @@ namespace Utility.DataAccess
             }
         }
 
-        public async Task<BatchListQueryResult> TryGetBatchListCountAsync(DbSettingsDTO settings, string procedureName)
+        public async Task<BatchListQueryResult> TryGetBatchListAsync(DbSettingsDTO settings, string procedureName)
         {
             if (settings == null)
             {
@@ -79,7 +81,7 @@ namespace Utility.DataAccess
                     .ExecuteProcedureAsync(
                         connectionInfo.ToConnectionString(),
                         procedureName,
-                        (Dictionary<string, object>)null,
+                        (Dictionary<string, object>?)null,
                         false))
                 {
                     if (!result.IsSuccess)
@@ -91,8 +93,8 @@ namespace Utility.DataAccess
                         ? result.DataSet.Tables[0]
                         : null;
 
-                    var count = table?.Rows.Count ?? 0;
-                    return BatchListQueryResult.Success(count, result.Message ?? string.Empty);
+                    var rows = MapRows(table);
+                    return BatchListQueryResult.Success(rows, result.Message ?? string.Empty);
                 }
             }
             catch (Exception ex)
@@ -100,5 +102,128 @@ namespace Utility.DataAccess
                 return BatchListQueryResult.Failure(ex.Message);
             }
         }
+
+        #region Private Methods
+
+        /// <summary>
+        /// Projects the first result set of the BatchList SP onto <see cref="BatchListDTO"/> using case-insensitive column lookups.
+        /// </summary>
+        private static IReadOnlyList<BatchListDTO> MapRows(DataTable? table)
+        {
+            if (table == null || table.Rows.Count == 0)
+            {
+                return Array.Empty<BatchListDTO>();
+            }
+
+            var list = new List<BatchListDTO>(table.Rows.Count);
+            foreach (DataRow row in table.Rows)
+            {
+                list.Add(new BatchListDTO
+                {
+                    ID = GetInt32(row, "ID"),
+                    DisplayName = GetString(row, "DisplayName"),
+                    Description = GetNullableString(row, "Description"),
+                    ProcedureName = GetString(row, "ProcedureName"),
+
+                    ScheduleType = (EBatchScheduleType)GetInt32(row, "ScheduleType"),
+                    IntervalValue = GetNullableInt32(row, "IntervalValue"),
+                    RunHour = GetNullableByte(row, "RunHour"),
+                    RunMinute = GetNullableByte(row, "RunMinute"),
+                    WeekDays = GetByte(row, "WeekDays"),
+
+                    CustomKey1 = GetNullableString(row, "CustomKey1"),
+                    CustomValue1 = GetNullableString(row, "CustomValue1"),
+                    CustomKey2 = GetNullableString(row, "CustomKey2"),
+                    CustomValue2 = GetNullableString(row, "CustomValue2"),
+                    CustomKey3 = GetNullableString(row, "CustomKey3"),
+                    CustomValue3 = GetNullableString(row, "CustomValue3"),
+                    CustomKey4 = GetNullableString(row, "CustomKey4"),
+                    CustomValue4 = GetNullableString(row, "CustomValue4"),
+                    CustomKey5 = GetNullableString(row, "CustomKey5"),
+                    CustomValue5 = GetNullableString(row, "CustomValue5"),
+
+                    LastRunAt = GetNullableDateTime(row, "LastRunAt"),
+                    LastResult = (EBatchResult)GetInt32(row, "LastResult"),
+                    IsEnabled = GetBoolean(row, "IsEnabled"),
+                    UpdatedAt = GetNullableDateTime(row, "UpdatedAt") ?? default,
+                });
+            }
+
+            return list;
+        }
+
+        private static bool HasColumn(DataRow row, string columnName)
+            => row.Table.Columns.Contains(columnName);
+
+        private static string GetString(DataRow row, string columnName)
+        {
+            if (!HasColumn(row, columnName)) return string.Empty;
+            var value = row[columnName];
+            return value == null || value == DBNull.Value ? string.Empty : value.ToString() ?? string.Empty;
+        }
+
+        private static string? GetNullableString(DataRow row, string columnName)
+        {
+            if (!HasColumn(row, columnName)) return null;
+            var value = row[columnName];
+            return value == null || value == DBNull.Value ? null : value.ToString();
+        }
+
+        private static int GetInt32(DataRow row, string columnName)
+        {
+            if (!HasColumn(row, columnName)) return 0;
+            var value = row[columnName];
+            if (value == null || value == DBNull.Value) return 0;
+            try { return Convert.ToInt32(value); }
+            catch { return 0; }
+        }
+
+        private static int? GetNullableInt32(DataRow row, string columnName)
+        {
+            if (!HasColumn(row, columnName)) return null;
+            var value = row[columnName];
+            if (value == null || value == DBNull.Value) return null;
+            try { return Convert.ToInt32(value); }
+            catch { return null; }
+        }
+
+        private static byte GetByte(DataRow row, string columnName)
+        {
+            if (!HasColumn(row, columnName)) return 0;
+            var value = row[columnName];
+            if (value == null || value == DBNull.Value) return 0;
+            try { return Convert.ToByte(value); }
+            catch { return 0; }
+        }
+
+        private static byte? GetNullableByte(DataRow row, string columnName)
+        {
+            if (!HasColumn(row, columnName)) return null;
+            var value = row[columnName];
+            if (value == null || value == DBNull.Value) return null;
+            try { return Convert.ToByte(value); }
+            catch { return null; }
+        }
+
+        private static bool GetBoolean(DataRow row, string columnName)
+        {
+            if (!HasColumn(row, columnName)) return false;
+            var value = row[columnName];
+            if (value == null || value == DBNull.Value) return false;
+            try { return Convert.ToBoolean(value); }
+            catch { return false; }
+        }
+
+        private static DateTime? GetNullableDateTime(DataRow row, string columnName)
+        {
+            if (!HasColumn(row, columnName)) return null;
+            var value = row[columnName];
+            if (value == null || value == DBNull.Value) return null;
+            if (value is DateTime dt) return dt;
+            if (DateTime.TryParse(value.ToString(), out var parsed)) return parsed;
+            return null;
+        }
+
+        #endregion
     }
 }

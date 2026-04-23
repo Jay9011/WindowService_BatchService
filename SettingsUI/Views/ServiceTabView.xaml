@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ui="clr-namespace:SettingsUI.Resources"
+             xmlns:res="clr-namespace:Utility.Resources;assembly=Utility"
              mc:Ignorable="d"
              d:DesignHeight="220" d:DesignWidth="520">
     <Grid Margin="16">
@@ -18,16 +18,16 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static ui:Strings.LabelServiceStatus}" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static res:Strings.LabelServiceStatus}" VerticalAlignment="Center" />
         <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,4" FontWeight="SemiBold"
                    Text="{Binding StatusDisplay}" />
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,12">
-            <Button Content="{x:Static ui:Strings.ButtonStart}" Command="{Binding StartCommand}"
+            <Button Content="{x:Static res:Strings.ButtonStart}" Command="{Binding StartCommand}"
                     Padding="16,4" Margin="0,0,8,0" />
-            <Button Content="{x:Static ui:Strings.ButtonStop}" Command="{Binding StopCommand}"
+            <Button Content="{x:Static res:Strings.ButtonStop}" Command="{Binding StopCommand}"
                     Padding="16,4" Margin="0,0,8,0" />
-            <Button Content="{x:Static ui:Strings.ButtonRestart}" Command="{Binding RestartCommand}"
+            <Button Content="{x:Static res:Strings.ButtonRestart}" Command="{Binding RestartCommand}"
                     Padding="16,4" />
         </StackPanel>
 

@@ -1,9 +1,9 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Input;
 using SettingsUI.Infrastructure;
 using Utility.DataAccess;
+using Utility.Resources;
 using Utility.Settings;
-using UiStrings = SettingsUI.Resources.Strings;
 
 namespace SettingsUI.ViewModels;
 
@@ -80,12 +80,12 @@ public class MainViewModel : ViewModelBase
 
             Service.Refresh();
 
-            StatusMessage = UiStrings.MessageReloadDone;
+            StatusMessage = Strings.MessageReloadDone;
         }
         catch (Exception ex)
         {
             StatusMessage = ex.Message;
-            MessageBox.Show(ex.Message, UiStrings.TitleError, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(ex.Message, Strings.TitleError, MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally
         {
@@ -99,7 +99,7 @@ public class MainViewModel : ViewModelBase
     /// Check if the save command can be executed.
     /// </summary>
     /// <returns>True if the save command can be executed, false otherwise.</returns>
-    private bool CanSave() => !IsBusy && Batch.PollingIntervalValid;
+    private bool CanSave() => !IsBusy && Batch.PollingIntervalValid && Batch.MaxConcurrencyValid;
 
     /// <summary>
     /// Save the settings to the file.
@@ -112,8 +112,18 @@ public class MainViewModel : ViewModelBase
         if (!Batch.PollingIntervalValid)
         {
             MessageBox.Show(
-                UiStrings.ValidationPollingIntervalFormat,
-                UiStrings.TitleError,
+                Strings.ValidationPollingIntervalFormat,
+                Strings.TitleError,
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
+
+        if (!Batch.MaxConcurrencyValid)
+        {
+            MessageBox.Show(
+                Strings.ValidationMaxConcurrencyRange,
+                Strings.TitleError,
                 MessageBoxButton.OK,
                 MessageBoxImage.Warning);
             return;
@@ -133,20 +143,20 @@ public class MainViewModel : ViewModelBase
             await _store.SaveBatchOptionsAsync(options);
             await _store.SaveLogLevelsAsync(Logging.ToLevels());
 
-            StatusMessage = UiStrings.MessageSaveSuccess + " / " + UiStrings.MessageWorkerWillReload;
+            StatusMessage = Strings.MessageSaveSuccess + " / " + Strings.MessageWorkerWillReload;
 
             MessageBox.Show(
                 StatusMessage,
-                UiStrings.TitleInfo,
+                Strings.TitleInfo,
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
-            StatusMessage = UiStrings.MessageSaveFailed + ": " + ex.Message;
+            StatusMessage = Strings.MessageSaveFailed + ": " + ex.Message;
             MessageBox.Show(
                 StatusMessage,
-                UiStrings.TitleError,
+                Strings.TitleError,
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
         }

@@ -117,6 +117,48 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BatchListLoadedFormat" xml:space="preserve">
+    <value>{0}건 조회됨</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="ButtonLoadBatchList" xml:space="preserve">
+    <value>배치 미리 불러보기</value>
+  </data>
+  <data name="ButtonReload" xml:space="preserve">
+    <value>초기화</value>
+  </data>
+  <data name="ButtonRestart" xml:space="preserve">
+    <value>재시작</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="ButtonStart" xml:space="preserve">
+    <value>시작</value>
+  </data>
+  <data name="ButtonStop" xml:space="preserve">
+    <value>중지</value>
+  </data>
+  <data name="ColumnDescription" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="ColumnDisplayName" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="ColumnIsEnabled" xml:space="preserve">
+    <value>사용</value>
+  </data>
+  <data name="ColumnLastResult" xml:space="preserve">
+    <value>결과</value>
+  </data>
+  <data name="ColumnLastRunAt" xml:space="preserve">
+    <value>최근 실행</value>
+  </data>
+  <data name="ColumnProcedureName" xml:space="preserve">
+    <value>프로시저</value>
+  </data>
   <data name="DatabaseBatchSizeText" xml:space="preserve">
     <value>저장된 배치 수: {0}건</value>
   </data>
@@ -135,23 +177,89 @@
   <data name="ErrorEncryption" xml:space="preserve">
     <value>암호화에 실패했습니다</value>
   </data>
+  <data name="HintMaxConcurrency" xml:space="preserve">
+    <value>1~64 (기본 4)</value>
+  </data>
+  <data name="HintPollingIntervalFormat" xml:space="preserve">
+    <value>주기 입력 형식 (hh:mm:ss)</value>
+  </data>
   <data name="LabelDatabase" xml:space="preserve">
     <value>데이터베이스</value>
+  </data>
+  <data name="LabelDefaultLogLevel" xml:space="preserve">
+    <value>기본 Log Level</value>
+  </data>
+  <data name="LabelHostingLifetimeLogLevel" xml:space="preserve">
+    <value>Hosting Lifetime Log Level</value>
   </data>
   <data name="LabelIntegratedSecurity" xml:space="preserve">
     <value>Integrated Security</value>
   </data>
+  <data name="LabelMaxConcurrency" xml:space="preserve">
+    <value>최대 동시 실행 수</value>
+  </data>
   <data name="LabelPassword" xml:space="preserve">
     <value>비밀번호</value>
+  </data>
+  <data name="LabelPollingInterval" xml:space="preserve">
+    <value>주기</value>
   </data>
   <data name="LabelPort" xml:space="preserve">
     <value>포트</value>
   </data>
+  <data name="LabelProcedureName" xml:space="preserve">
+    <value>프로시저 명</value>
+  </data>
   <data name="LabelServer" xml:space="preserve">
     <value>서버</value>
   </data>
+  <data name="LabelServiceStatus" xml:space="preserve">
+    <value>서비스 상태</value>
+  </data>
   <data name="LabelUserId" xml:space="preserve">
     <value>로그인 ID</value>
+  </data>
+  <data name="LogLevelCritical" xml:space="preserve">
+    <value>Critical</value>
+  </data>
+  <data name="LogLevelDebug" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="LogLevelError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="LogLevelInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="LogLevelTrace" xml:space="preserve">
+    <value>Trace</value>
+  </data>
+  <data name="LogLevelWarning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="MessageDuplicateInstance" xml:space="preserve">
+    <value>덮어쓰기</value>
+  </data>
+  <data name="MessageNotAdmin" xml:space="preserve">
+    <value>관리자 권한이 아닙니다.</value>
+  </data>
+  <data name="MessageReloadDone" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="MessageSaveFailed" xml:space="preserve">
+    <value>저장 실패</value>
+  </data>
+  <data name="MessageSaveSuccess" xml:space="preserve">
+    <value>저장 성공</value>
+  </data>
+  <data name="MessageWorkerWillReload" xml:space="preserve">
+    <value>서비스 재실행</value>
+  </data>
+  <data name="ResultFailure" xml:space="preserve">
+    <value>실패</value>
+  </data>
+  <data name="ResultSuccess" xml:space="preserve">
+    <value>성공</value>
   </data>
   <data name="ServiceDisplayName" xml:space="preserve">
     <value>SECUiDEA 배치 서비스</value>
@@ -171,11 +279,23 @@
   <data name="StatusStartPending" xml:space="preserve">
     <value>실행 요청 중</value>
   </data>
+  <data name="StatusStopPending" xml:space="preserve">
+    <value>정지 요청 중</value>
+  </data>
   <data name="StatusStopped" xml:space="preserve">
     <value>정지 됨</value>
   </data>
-  <data name="StatusStopPending" xml:space="preserve">
-    <value>정지 요청 중</value>
+  <data name="TabBatch" xml:space="preserve">
+    <value>배치</value>
+  </data>
+  <data name="TabDatabase" xml:space="preserve">
+    <value>데이터베이스</value>
+  </data>
+  <data name="TabLogging" xml:space="preserve">
+    <value>로그</value>
+  </data>
+  <data name="TabService" xml:space="preserve">
+    <value>서비스</value>
   </data>
   <data name="TestConnection" xml:space="preserve">
     <value>연결 테스트</value>
@@ -188,5 +308,41 @@
   </data>
   <data name="Title" xml:space="preserve">
     <value>배치 서비스</value>
+  </data>
+  <data name="TitleConfirm" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="TitleError" xml:space="preserve">
+    <value>오류</value>
+  </data>
+  <data name="TitleInfo" xml:space="preserve">
+    <value>정보</value>
+  </data>
+  <data name="ValidationDatabaseRequired" xml:space="preserve">
+    <value>올바른 데이터베이스 정보를 입력하세요</value>
+  </data>
+  <data name="ValidationMaxConcurrencyRange" xml:space="preserve">
+    <value>최대 동시 실행 수는 1~64 사이의 정수여야 합니다</value>
+  </data>
+  <data name="ValidationPasswordRequired" xml:space="preserve">
+    <value>올바른 비밀번호를 입력하세요</value>
+  </data>
+  <data name="ValidationPollingIntervalFormat" xml:space="preserve">
+    <value>시간 입력 형식을 확인해주세요</value>
+  </data>
+  <data name="ValidationPortRange" xml:space="preserve">
+    <value>올바른 포트 번호를 입력해주세요</value>
+  </data>
+  <data name="ValidationProcedureNameRequired" xml:space="preserve">
+    <value>프로시저명을 확인해주세요.</value>
+  </data>
+  <data name="ValidationServerRequired" xml:space="preserve">
+    <value>올바른 서버 정보를 입력하세요</value>
+  </data>
+  <data name="ValidationUserIdRequired" xml:space="preserve">
+    <value>올바른 로그인 ID를 입력하세요</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>SECUiDEA 배치 설정</value>
   </data>
 </root>

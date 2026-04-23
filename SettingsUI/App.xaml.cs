@@ -4,9 +4,8 @@ using System.Windows.Markup;
 using System.Windows.Threading;
 using Serilog;
 using Utility.Logging;
+using Utility.Resources;
 using Utility.Settings;
-using UiStrings = SettingsUI.Resources.Strings;
-using CommonStrings = Utility.Resources.Strings;
 
 namespace SettingsUI;
 
@@ -24,8 +23,8 @@ public partial class App : Application
         if (!_mutexOwned)
         {
             MessageBox.Show(
-                UiStrings.MessageDuplicateInstance,
-                UiStrings.WindowTitle,
+                Strings.MessageDuplicateInstance,
+                Strings.WindowTitle,
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
 
@@ -59,8 +58,8 @@ public partial class App : Application
         catch (Exception ex)
         {
             MessageBox.Show(
-                CommonStrings.ErrorConfigDirCreate + Environment.NewLine + ex.Message,
-                UiStrings.TitleError,
+                Strings.ErrorConfigDirCreate + Environment.NewLine + ex.Message,
+                Strings.TitleError,
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
 
@@ -86,7 +85,7 @@ public partial class App : Application
             // Logging must never take the UI down; just surface the failure and continue.
             MessageBox.Show(
                 ex.Message,
-                UiStrings.TitleError,
+                Strings.TitleError,
                 MessageBoxButton.OK,
                 MessageBoxImage.Warning);
         }

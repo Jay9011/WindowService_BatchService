@@ -1,5 +1,5 @@
-using System.Diagnostics;
-using BatchService.Services;
+﻿using System.Diagnostics;
+using BatchService.Services.Batch;
 using Microsoft.Extensions.Options;
 using Utility.Settings;
 

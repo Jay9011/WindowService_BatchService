@@ -1,11 +1,12 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics;
 using BatchService.Models;
-using BatchService.Repository.Abstraction.Batch;
+using BatchService.Repository.Batch;
 using Microsoft.Extensions.Options;
+using Utility.Batch;
 using Utility.Settings;
 
-namespace BatchService.Services;
+namespace BatchService.Services.Batch;
 
 public class BatchExecutionService : IBatchExecutionService
 {
@@ -39,8 +40,6 @@ public class BatchExecutionService : IBatchExecutionService
             return Array.Empty<BatchExecDTO>();
         }
 
-        // Snapshot now once so every batch in this tick is judged against the same clock.
-        // Local time (matches DB SYSDATETIME() defaults).
         var now = DateTime.Now;
 
         var dueBatches = allBatches

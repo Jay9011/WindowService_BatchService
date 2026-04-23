@@ -1,6 +1,6 @@
-using BatchService.Models;
+﻿using Utility.Batch;
 
-namespace BatchService.Services;
+namespace BatchService.Services.Batch;
 
 /// <summary>
 /// Decides whether a batch is due to run at a given point in time,

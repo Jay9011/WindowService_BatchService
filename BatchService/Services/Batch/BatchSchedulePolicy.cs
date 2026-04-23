@@ -1,6 +1,6 @@
-using BatchService.Models;
+﻿using Utility.Batch;
 
-namespace BatchService.Services;
+namespace BatchService.Services.Batch;
 
 public class BatchSchedulePolicy : IBatchSchedulePolicy
 {

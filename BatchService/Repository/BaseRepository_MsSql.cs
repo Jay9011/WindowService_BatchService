@@ -6,7 +6,7 @@ using CoreDAL.ORM.Interfaces;
 using Microsoft.Extensions.Options;
 using Utility.Settings;
 
-namespace BatchService.Repository.Abstraction;
+namespace BatchService.Repository;
 
 /// <summary>
 /// MSSQL base for all batch-service repositories.

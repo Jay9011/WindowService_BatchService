@@ -117,6 +117,48 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BatchListLoadedFormat" xml:space="preserve">
+    <value>{0} row(s) returned</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ButtonLoadBatchList" xml:space="preserve">
+    <value>Load Batch List</value>
+  </data>
+  <data name="ButtonReload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="ButtonRestart" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ButtonStart" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="ButtonStop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="ColumnDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ColumnDisplayName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ColumnIsEnabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="ColumnLastResult" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="ColumnLastRunAt" xml:space="preserve">
+    <value>Last Run</value>
+  </data>
+  <data name="ColumnProcedureName" xml:space="preserve">
+    <value>Procedure</value>
+  </data>
   <data name="DatabaseBatchSizeText" xml:space="preserve">
     <value>Saved Batches: {0}</value>
   </data>
@@ -135,23 +177,89 @@
   <data name="ErrorEncryption" xml:space="preserve">
     <value>Encryption failed</value>
   </data>
+  <data name="HintMaxConcurrency" xml:space="preserve">
+    <value>1-64 (default 4)</value>
+  </data>
+  <data name="HintPollingIntervalFormat" xml:space="preserve">
+    <value>Polling Interval Format (hh:mm:ss)</value>
+  </data>
   <data name="LabelDatabase" xml:space="preserve">
     <value>Database</value>
+  </data>
+  <data name="LabelDefaultLogLevel" xml:space="preserve">
+    <value>Default Log Level</value>
+  </data>
+  <data name="LabelHostingLifetimeLogLevel" xml:space="preserve">
+    <value>Hosting Lifetime Log Level</value>
   </data>
   <data name="LabelIntegratedSecurity" xml:space="preserve">
     <value>Integrated Security</value>
   </data>
+  <data name="LabelMaxConcurrency" xml:space="preserve">
+    <value>Max Concurrent Batches</value>
+  </data>
   <data name="LabelPassword" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="LabelPollingInterval" xml:space="preserve">
+    <value>Polling Interval</value>
   </data>
   <data name="LabelPort" xml:space="preserve">
     <value>Port</value>
   </data>
+  <data name="LabelProcedureName" xml:space="preserve">
+    <value>Procedure Name</value>
+  </data>
   <data name="LabelServer" xml:space="preserve">
     <value>Server</value>
   </data>
+  <data name="LabelServiceStatus" xml:space="preserve">
+    <value>Service Status</value>
+  </data>
   <data name="LabelUserId" xml:space="preserve">
     <value>User ID</value>
+  </data>
+  <data name="LogLevelCritical" xml:space="preserve">
+    <value>Critical</value>
+  </data>
+  <data name="LogLevelDebug" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="LogLevelError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="LogLevelInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="LogLevelTrace" xml:space="preserve">
+    <value>Trace</value>
+  </data>
+  <data name="LogLevelWarning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="MessageDuplicateInstance" xml:space="preserve">
+    <value>Duplicate Instance</value>
+  </data>
+  <data name="MessageNotAdmin" xml:space="preserve">
+    <value>You do not have administrator</value>
+  </data>
+  <data name="MessageReloadDone" xml:space="preserve">
+    <value>Reload Done</value>
+  </data>
+  <data name="MessageSaveFailed" xml:space="preserve">
+    <value>Save Failed</value>
+  </data>
+  <data name="MessageSaveSuccess" xml:space="preserve">
+    <value>Save Success</value>
+  </data>
+  <data name="MessageWorkerWillReload" xml:space="preserve">
+    <value>Worker will reload</value>
+  </data>
+  <data name="ResultFailure" xml:space="preserve">
+    <value>Failure</value>
+  </data>
+  <data name="ResultSuccess" xml:space="preserve">
+    <value>Success</value>
   </data>
   <data name="ServiceDisplayName" xml:space="preserve">
     <value>SECUiDEA Batch Service</value>
@@ -171,11 +279,23 @@
   <data name="StatusStartPending" xml:space="preserve">
     <value>Start Pending</value>
   </data>
+  <data name="StatusStopPending" xml:space="preserve">
+    <value>Stop Pending</value>
+  </data>
   <data name="StatusStopped" xml:space="preserve">
     <value>Stopped</value>
   </data>
-  <data name="StatusStopPending" xml:space="preserve">
-    <value>Stop Pending</value>
+  <data name="TabBatch" xml:space="preserve">
+    <value>Batch</value>
+  </data>
+  <data name="TabDatabase" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="TabLogging" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="TabService" xml:space="preserve">
+    <value>Service</value>
   </data>
   <data name="TestConnection" xml:space="preserve">
     <value>Connection Test</value>
@@ -188,5 +308,41 @@
   </data>
   <data name="Title" xml:space="preserve">
     <value>Batch Service</value>
+  </data>
+  <data name="TitleConfirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="TitleError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="TitleInfo" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="ValidationDatabaseRequired" xml:space="preserve">
+    <value>Please enter the correct database information</value>
+  </data>
+  <data name="ValidationMaxConcurrencyRange" xml:space="preserve">
+    <value>Max concurrency must be an integer between 1 and 64</value>
+  </data>
+  <data name="ValidationPasswordRequired" xml:space="preserve">
+    <value>Please enter the correct password</value>
+  </data>
+  <data name="ValidationPollingIntervalFormat" xml:space="preserve">
+    <value>Please check the interval Format</value>
+  </data>
+  <data name="ValidationPortRange" xml:space="preserve">
+    <value>Please enter the correct port number</value>
+  </data>
+  <data name="ValidationProcedureNameRequired" xml:space="preserve">
+    <value>Please check the procedure name</value>
+  </data>
+  <data name="ValidationServerRequired" xml:space="preserve">
+    <value>Please enter the correct server information</value>
+  </data>
+  <data name="ValidationUserIdRequired" xml:space="preserve">
+    <value>Please enter the correct user id</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>SECUiDEA Batch Setting</value>
   </data>
 </root>

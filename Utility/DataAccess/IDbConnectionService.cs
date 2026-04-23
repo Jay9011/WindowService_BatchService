@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Utility.Batch;
 using Utility.DataAccess;
 using Utility.Settings;
 
@@ -18,13 +19,11 @@ namespace Utility.Abstractions.Services
         Task<DbConnectionTestResult> TestAsync(DbSettingsDTO settings);
 
         /// <summary>
-        /// Executes the given stored procedure and returns the row count of the
-        /// first result set. Used by SettingsUI to verify that the configured
-        /// BatchList procedure is wired up correctly.
+        /// Executes the configured BatchList stored procedure and projects the first result set into lightweight <see cref="BatchListDTO"/> rows for the UI to display.
         /// </summary>
         /// <param name="settings">Database settings to connect with.</param>
         /// <param name="procedureName">Stored procedure to execute (no parameters).</param>
-        /// <returns>Result containing row count or an error message.</returns>
-        Task<BatchListQueryResult> TryGetBatchListCountAsync(DbSettingsDTO settings, string procedureName);
+        /// <returns>Result containing the projected rows or an error message.</returns>
+        Task<BatchListQueryResult> TryGetBatchListAsync(DbSettingsDTO settings, string procedureName);
     }
 }

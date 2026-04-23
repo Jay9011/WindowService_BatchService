@@ -1,8 +1,7 @@
 ﻿using BatchService.Models;
-using BatchService.Repository.Abstraction;
-using BatchService.Repository.Abstraction.Batch;
 using CoreDAL.ORM;
 using Microsoft.Extensions.Options;
+using Utility.Batch;
 using Utility.Settings;
 
 namespace BatchService.Repository.Batch;
@@ -38,7 +37,7 @@ public class BatchRepository : BaseRepository_MsSql, IBatchRepository
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        var param = BatchListDTO.ToExecEntity(dto);
+        var param = BatchExecEntity.FromBatchList(dto);
         return ExecuteProcedureAsync(dto.ProcedureName, param, isReturn: false);
     }
 

@@ -1,7 +1,8 @@
 ﻿using BatchService.Models;
 using CoreDAL.ORM;
+using Utility.Batch;
 
-namespace BatchService.Repository.Abstraction.Batch;
+namespace BatchService.Repository.Batch;
 
 /// <summary>
 /// Data access surface used by <see cref="Worker"/> to drive batch execution.

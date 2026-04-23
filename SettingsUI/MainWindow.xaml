@@ -5,9 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:views="clr-namespace:SettingsUI.Views"
         xmlns:vm="clr-namespace:SettingsUI.ViewModels"
-        xmlns:ui="clr-namespace:SettingsUI.Resources"
+        xmlns:res="clr-namespace:Utility.Resources;assembly=Utility"
         mc:Ignorable="d"
-        Title="{x:Static ui:Strings.WindowTitle}"
+        Title="{x:Static res:Strings.WindowTitle}"
         Height="560" Width="760"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
@@ -22,26 +22,26 @@
         </Grid.RowDefinitions>
 
         <TabControl Grid.Row="0" Margin="12,12,12,0">
-            <TabItem Header="{x:Static ui:Strings.TabDatabase}">
+            <TabItem Header="{x:Static res:Strings.TabDatabase}">
                 <views:DatabaseTabView DataContext="{Binding Database}" Loaded="DatabaseTabView_Loaded" />
             </TabItem>
-            <TabItem Header="{x:Static ui:Strings.TabBatch}">
+            <TabItem Header="{x:Static res:Strings.TabBatch}">
                 <views:BatchTabView DataContext="{Binding Batch}" />
             </TabItem>
-            <TabItem Header="{x:Static ui:Strings.TabLogging}">
+            <TabItem Header="{x:Static res:Strings.TabLogging}">
                 <views:LoggingTabView DataContext="{Binding Logging}" />
             </TabItem>
-            <TabItem Header="{x:Static ui:Strings.TabService}">
+            <TabItem Header="{x:Static res:Strings.TabService}">
                 <views:ServiceTabView DataContext="{Binding Service}" />
             </TabItem>
         </TabControl>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right"
                     Margin="12,12,12,6">
-            <Button Content="{x:Static ui:Strings.ButtonReload}"
+            <Button Content="{x:Static res:Strings.ButtonReload}"
                     Command="{Binding ReloadCommand}"
                     Padding="16,4" Margin="0,0,8,0" />
-            <Button Content="{x:Static ui:Strings.ButtonSave}"
+            <Button Content="{x:Static res:Strings.ButtonSave}"
                     Command="{Binding SaveCommand}"
                     Padding="16,4" />
         </StackPanel>

@@ -3,11 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ui="clr-namespace:SettingsUI.Resources"
+             xmlns:res="clr-namespace:Utility.Resources;assembly=Utility"
              mc:Ignorable="d"
-             d:DesignHeight="280" d:DesignWidth="520">
+             d:DesignHeight="520" d:DesignWidth="720">
     <Grid Margin="16">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -19,19 +21,26 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static ui:Strings.LabelProcedureName}" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static res:Strings.LabelProcedureName}" VerticalAlignment="Center" />
         <TextBox   Grid.Row="0" Grid.Column="1" Margin="0,4"
                    Text="{Binding ProcedureName, UpdateSourceTrigger=PropertyChanged}" />
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static ui:Strings.LabelPollingInterval}" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static res:Strings.LabelPollingInterval}" VerticalAlignment="Center" />
         <TextBox   Grid.Row="1" Grid.Column="1" Margin="0,4"
                    Text="{Binding PollingIntervalText, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,4" Foreground="Gray" FontSize="11"
-                   Text="{x:Static ui:Strings.HintPollingIntervalFormat}" />
+                   Text="{x:Static res:Strings.HintPollingIntervalFormat}" />
 
-        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0,12,0,0">
-            <Button Content="{x:Static ui:Strings.ButtonLoadBatchList}"
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static res:Strings.LabelMaxConcurrency}" VerticalAlignment="Center" />
+        <TextBox   Grid.Row="3" Grid.Column="1" Margin="0,4"
+                   Text="{Binding MaxConcurrencyText, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Grid.Row="4" Grid.Column="1" Margin="0,4" Foreground="Gray" FontSize="11"
+                   Text="{x:Static res:Strings.HintMaxConcurrency}" />
+
+        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Margin="0,12,0,8">
+            <Button Content="{x:Static res:Strings.ButtonLoadBatchList}"
                     Command="{Binding LoadBatchListCommand}"
                     Padding="12,4" />
             <TextBlock Text="{Binding LoadResult}"
@@ -39,5 +48,41 @@
                        Margin="12,0,0,0"
                        TextWrapping="Wrap" />
         </StackPanel>
+
+        <DataGrid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                  Margin="0,4,0,0"
+                  ItemsSource="{Binding Batches}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserSortColumns="True"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
+                  AlternatingRowBackground="#F7F7F7">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{x:Static res:Strings.ColumnDisplayName}"
+                                    Binding="{Binding DisplayName}"
+                                    Width="160" />
+                <DataGridTextColumn Header="{x:Static res:Strings.ColumnDescription}"
+                                    Binding="{Binding Description}"
+                                    Width="*" />
+                <DataGridTextColumn Header="{x:Static res:Strings.ColumnProcedureName}"
+                                    Binding="{Binding ProcedureName}"
+                                    Width="160" />
+                <DataGridTextColumn Header="{x:Static res:Strings.ColumnLastRunAt}"
+                                    Binding="{Binding LastRunAtDisplay}"
+                                    Width="140" />
+                <DataGridTextColumn Header="{x:Static res:Strings.ColumnLastResult}"
+                                    Binding="{Binding LastResultDisplay}"
+                                    Width="70" />
+                <DataGridCheckBoxColumn Header="{x:Static res:Strings.ColumnIsEnabled}"
+                                        Binding="{Binding IsEnabled, Mode=OneWay}"
+                                        Width="60"
+                                        IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
