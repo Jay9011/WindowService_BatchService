@@ -4,8 +4,14 @@
     <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)build\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-
-	<!-- 언어 설정 (영어 기본) -->
-	<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugType>embedded</DebugType>
+  	<DebugSymbols>true</DebugSymbols>
+  	<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+  	<SatelliteResourceLanguages>en;ko</SatelliteResourceLanguages>
   </PropertyGroup>
 </Project>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -11,6 +11,16 @@
     <Company>SECUiDEA</Company>
     <Copyright>Jay9011</Copyright>
   </PropertyGroup>
+
+  <ItemGroup>
+	<Content Update="appsettings.Development.json">
+		<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+	</Content>
+	<Content Update="appsettings.json">
+		<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+	</Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.4" />

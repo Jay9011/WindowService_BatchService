@@ -47,13 +47,11 @@ public partial class App : Application
         // <== Set the culture of the application
         // ================================================
 
-        // set the language of the application. (XAML file)
         FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(uiCulture.IetfLanguageTag)));
 
         try
         {
-            var store = new SettingsFileStore();
-            store.EnsureInitializedAsync().GetAwaiter().GetResult();
+            ConfigPaths.EnsureDirectoryExists();
         }
         catch (Exception ex)
         {
