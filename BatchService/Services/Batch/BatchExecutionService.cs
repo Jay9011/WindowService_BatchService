@@ -11,6 +11,7 @@ namespace BatchService.Services.Batch;
 public class BatchExecutionService : IBatchExecutionService
 {
     private const int DefaultMaxConcurrency = 4;
+    private const int MaxPersistedMessageLength = 4000;
 
     private readonly IBatchRepository _repository;
     private readonly IBatchSchedulePolicy _schedulePolicy;
@@ -101,7 +102,7 @@ public class BatchExecutionService : IBatchExecutionService
         catch (Exception ex)
         {
             isSuccess = false;
-            message = ex.Message;
+            message = FlattenExceptionMessage(ex);
             _logger.LogError(ex, "Batch {Name} (ID={Id}) threw while executing {Proc}", batch.DisplayName, batch.ID, batch.ProcedureName);
         }
 
@@ -137,7 +138,7 @@ public class BatchExecutionService : IBatchExecutionService
             StartedAt = result.StartedAt,
             EndedAt = result.EndedAt,
             IsSuccess = result.IsSuccess,
-            Message = result.Message,
+            Message = Truncate(result.Message, MaxPersistedMessageLength),
         };
 
         try
@@ -148,6 +149,42 @@ public class BatchExecutionService : IBatchExecutionService
         {
             _logger.LogError(ex, "Failed to persist BatchLog for BatchID={Id}", result.BatchID);
         }
+    }
+
+    /// <summary>
+    /// Flattens an exception chain into a single message so the root cause
+    /// (e.g. "The stored procedure 'X' doesn't exist.") ends up in <c>BatchLog.Message</c>
+    /// </summary>
+    private static string FlattenExceptionMessage(Exception ex)
+    {
+        var parts = new List<string>(4);
+        var current = ex;
+        while (current != null && parts.Count < 5) // prevent pathological chains
+        {
+            if (!string.IsNullOrWhiteSpace(current.Message))
+            {
+                parts.Add(current.Message.Trim());
+            }
+            current = current.InnerException;
+        }
+
+        return parts.Count == 0 ? ex.GetType().Name : string.Join(" -> ", parts);
+    }
+
+    /// <summary>
+    /// Truncates a string to the specified maximum length.
+    /// </summary>
+    /// <param name="value">The string to truncate.</param>
+    /// <param name="maxLength">The maximum length of the string.</param>
+    /// <returns>The truncated string.</returns>
+    private static string? Truncate(string? value, int maxLength)
+    {
+        if (string.IsNullOrEmpty(value) || value!.Length <= maxLength)
+        {
+            return value;
+        }
+
+        return value.Substring(0, maxLength);
     }
 
     /// <summary>
