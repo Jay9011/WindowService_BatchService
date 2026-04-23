@@ -187,6 +187,15 @@ namespace Utility.Resources {
         }
         
         /// <summary>
+        ///   Schedule과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ColumnSchedule {
+            get {
+                return ResourceManager.GetString("ColumnSchedule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Saved Batches: {0}과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string DatabaseBatchSizeText {
@@ -489,6 +498,69 @@ namespace Utility.Resources {
         public static string ResultSuccess {
             get {
                 return ResourceManager.GetString("ResultSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Daily {0}과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ScheduleDailyFormat {
+            get {
+                return ResourceManager.GetString("ScheduleDailyFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Every {0} hr과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ScheduleEveryHoursFormat {
+            get {
+                return ResourceManager.GetString("ScheduleEveryHoursFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Every {0} min과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ScheduleEveryMinutesFormat {
+            get {
+                return ResourceManager.GetString("ScheduleEveryMinutesFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Every {0} sec과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ScheduleEverySecondsFormat {
+            get {
+                return ResourceManager.GetString("ScheduleEverySecondsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Every {0} month(s) {1}과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ScheduleMonthlyFormat {
+            get {
+                return ResourceManager.GetString("ScheduleMonthlyFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unknown schedule과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ScheduleUnknown {
+            get {
+                return ResourceManager.GetString("ScheduleUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Weekly {0} {1}과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ScheduleWeeklyFormat {
+            get {
+                return ResourceManager.GetString("ScheduleWeeklyFormat", resourceCulture);
             }
         }
         

@@ -159,6 +159,30 @@
   <data name="ColumnProcedureName" xml:space="preserve">
     <value>프로시저</value>
   </data>
+  <data name="ColumnSchedule" xml:space="preserve">
+    <value>주기</value>
+  </data>
+  <data name="ScheduleEverySecondsFormat" xml:space="preserve">
+    <value>매 {0}초</value>
+  </data>
+  <data name="ScheduleEveryMinutesFormat" xml:space="preserve">
+    <value>매 {0}분</value>
+  </data>
+  <data name="ScheduleEveryHoursFormat" xml:space="preserve">
+    <value>매 {0}시간</value>
+  </data>
+  <data name="ScheduleDailyFormat" xml:space="preserve">
+    <value>매일 {0}</value>
+  </data>
+  <data name="ScheduleWeeklyFormat" xml:space="preserve">
+    <value>매주 {0} {1}</value>
+  </data>
+  <data name="ScheduleMonthlyFormat" xml:space="preserve">
+    <value>매 {0}개월 {1}</value>
+  </data>
+  <data name="ScheduleUnknown" xml:space="preserve">
+    <value>알 수 없음</value>
+  </data>
   <data name="DatabaseBatchSizeText" xml:space="preserve">
     <value>저장된 배치 수: {0}건</value>
   </data>

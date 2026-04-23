@@ -159,6 +159,30 @@
   <data name="ColumnProcedureName" xml:space="preserve">
     <value>Procedure</value>
   </data>
+  <data name="ColumnSchedule" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="ScheduleEverySecondsFormat" xml:space="preserve">
+    <value>Every {0} sec</value>
+  </data>
+  <data name="ScheduleEveryMinutesFormat" xml:space="preserve">
+    <value>Every {0} min</value>
+  </data>
+  <data name="ScheduleEveryHoursFormat" xml:space="preserve">
+    <value>Every {0} hr</value>
+  </data>
+  <data name="ScheduleDailyFormat" xml:space="preserve">
+    <value>Daily {0}</value>
+  </data>
+  <data name="ScheduleWeeklyFormat" xml:space="preserve">
+    <value>Weekly {0} {1}</value>
+  </data>
+  <data name="ScheduleMonthlyFormat" xml:space="preserve">
+    <value>Every {0} month(s) {1}</value>
+  </data>
+  <data name="ScheduleUnknown" xml:space="preserve">
+    <value>Unknown schedule</value>
+  </data>
   <data name="DatabaseBatchSizeText" xml:space="preserve">
     <value>Saved Batches: {0}</value>
   </data>
