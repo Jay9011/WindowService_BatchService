@@ -1,5 +1,8 @@
 ﻿using System.Globalization;
 using BatchService;
+using BatchService.Repository.Abstraction.Batch;
+using BatchService.Repository.Batch;
+using BatchService.Services;
 using Serilog;
 using Utility.Common;
 using Utility.Logging;
@@ -13,7 +16,6 @@ var store = new SettingsFileStore();
 await store.EnsureInitializedAsync();
 
 var builder = Host.CreateApplicationBuilder(args);
-
 var configDirectory = ConfigPaths.GetConfigDirectory();
 
 // ================================================
@@ -68,13 +70,28 @@ builder.Services.PostConfigure<BatchServiceOptions>(options =>
 // <== Configure Batch Service Options
 // ================================================
 
+// ================================================
+// ==> Add Repositories
+// ================================================
+builder.Services.AddSingleton<IBatchRepository, BatchRepository>();
+// ================================================
+// <== Add Repositories
+// ================================================
+
+// ================================================
+// ==> Add Services
+// ================================================
+builder.Services.AddSingleton<IBatchSchedulePolicy, BatchSchedulePolicy>();
+builder.Services.AddSingleton<IBatchExecutionService, BatchExecutionService>();
 builder.Services.AddHostedService<Worker>();
+// ================================================
+// <== Add Services
+// ================================================
 
 try
 {
     var host = builder.Build();
-    Log.Information("BatchService starting (env={Environment}, configDir={ConfigDir})",
-        ConfigPaths.IsDevelopment ? "Development" : "Production", configDirectory);
+    Log.Information("BatchService starting (env={Environment}, configDir={ConfigDir})", ConfigPaths.IsDevelopment ? "Development" : "Production", configDirectory);
     host.Run();
 }
 catch (Exception ex)

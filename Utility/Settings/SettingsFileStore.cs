@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Utility.Common;
-using Utility.DataAccess;
 using Utility.Security;
 
 namespace Utility.Settings
@@ -54,14 +53,14 @@ namespace Utility.Settings
 
             if (!File.Exists(_filePath))
             {
-                await _lock.WaitAsync(cancellationToken).ConfigureAwait(false);
+                await _lock.WaitAsync(cancellationToken);
 
                 try
                 {
                     if (!File.Exists(_filePath))
                     {
                         var template = BuildDefaultTemplate();
-                        await WriteAtomicAsync(template.ToString(Formatting.Indented), cancellationToken).ConfigureAwait(false);
+                        await WriteAtomicAsync(template.ToString(Formatting.Indented), cancellationToken);
                     }
                 }
                 finally
@@ -77,11 +76,11 @@ namespace Utility.Settings
         /// </summary>
         public async Task<BatchServiceOptions> LoadBatchOptionsAsync(CancellationToken cancellationToken = default)
         {
-            await _lock.WaitAsync(cancellationToken).ConfigureAwait(false);
+            await _lock.WaitAsync(cancellationToken);
 
             try
             {
-                var root = await ReadRootAsync(cancellationToken).ConfigureAwait(false);
+                var root = await ReadRootAsync(cancellationToken);
                 var batchToken = root[Keys.Key_Batch];
 
                 BatchServiceOptions options;
@@ -126,16 +125,16 @@ namespace Utility.Settings
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
 
-            await _lock.WaitAsync(cancellationToken).ConfigureAwait(false);
+            await _lock.WaitAsync(cancellationToken);
 
             try
             {
-                var root = await ReadRootOrNewAsync(cancellationToken).ConfigureAwait(false);
+                var root = await ReadRootOrNewAsync(cancellationToken);
 
                 var toPersist = CloneForPersistence(options);
                 root[Keys.Key_Batch] = JObject.FromObject(toPersist);
 
-                await WriteAtomicAsync(root.ToString(Formatting.Indented), cancellationToken).ConfigureAwait(false);
+                await WriteAtomicAsync(root.ToString(Formatting.Indented), cancellationToken);
             }
             catch (IOException)
             {
@@ -156,11 +155,11 @@ namespace Utility.Settings
         /// </summary>
         public async Task<Dictionary<string, string>> LoadLogLevelsAsync(CancellationToken cancellationToken = default)
         {
-            await _lock.WaitAsync(cancellationToken).ConfigureAwait(false);
+            await _lock.WaitAsync(cancellationToken);
 
             try
             {
-                var root = await ReadRootAsync(cancellationToken).ConfigureAwait(false);
+                var root = await ReadRootAsync(cancellationToken);
                 var levels = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
                 var logLevelObj = root[Keys.Key_Logging]?[Keys.Key_LogLevel] as JObject;
@@ -188,15 +187,15 @@ namespace Utility.Settings
         /// <summary>
         /// Replaces the "Logging:LogLevel" dictionary; other Logging keys are preserved.
         /// </summary>
-        public async Task SaveLogLevelsAsync(IDictionary<string, string> levels, CancellationToken ct = default)
+        public async Task SaveLogLevelsAsync(IDictionary<string, string> levels, CancellationToken cancellationToken = default)
         {
             if (levels == null) throw new ArgumentNullException(nameof(levels));
 
-            await _lock.WaitAsync(ct).ConfigureAwait(false);
+            await _lock.WaitAsync(cancellationToken);
 
             try
             {
-                var root = await ReadRootOrNewAsync(ct).ConfigureAwait(false);
+                var root = await ReadRootOrNewAsync(cancellationToken);
 
                 var logging = root[Keys.Key_Logging] as JObject ?? new JObject();
                 var logLevelObj = new JObject();
@@ -214,7 +213,7 @@ namespace Utility.Settings
                 logging[Keys.Key_LogLevel] = logLevelObj;
                 root[Keys.Key_Logging] = logging;
 
-                await WriteAtomicAsync(root.ToString(Formatting.Indented), ct).ConfigureAwait(false);
+                await WriteAtomicAsync(root.ToString(Formatting.Indented), cancellationToken);
             }
             catch (IOException)
             {
@@ -278,7 +277,7 @@ namespace Utility.Settings
             using (var fs = new FileStream(_filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             using (var sr = new StreamReader(fs, Encoding.UTF8))
             {
-                raw = await sr.ReadToEndAsync().ConfigureAwait(false);
+                raw = await sr.ReadToEndAsync();
             }
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -301,7 +300,7 @@ namespace Utility.Settings
         {
             try
             {
-                return await ReadRootAsync(cancellationToken).ConfigureAwait(false);
+                return await ReadRootAsync(cancellationToken);
             }
             catch (JsonException)
             {
@@ -331,8 +330,8 @@ namespace Utility.Settings
 
             using (var fs = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.None))
             {
-                await fs.WriteAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
-                await fs.FlushAsync(cancellationToken).ConfigureAwait(false);
+                await fs.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
+                await fs.FlushAsync(cancellationToken);
             }
 
             if (File.Exists(_filePath))

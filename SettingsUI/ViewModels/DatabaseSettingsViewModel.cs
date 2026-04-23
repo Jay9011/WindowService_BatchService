@@ -138,7 +138,7 @@ public class DatabaseSettingsViewModel : ViewModelBase
 
         try
         {
-            var result = await _connectionTester.TestAsync(ToDto()).ConfigureAwait(true);
+            var result = await _connectionTester.TestAsync(ToDto());
 
             TestSucceeded = result.IsSuccess;
             TestResult = result.IsSuccess

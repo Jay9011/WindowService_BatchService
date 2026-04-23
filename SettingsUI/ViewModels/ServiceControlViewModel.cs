@@ -137,7 +137,7 @@ public class ServiceControlViewModel : ViewModelBase, IDisposable
         LastError = string.Empty;
         try
         {
-            await action(OperationTimeout, CancellationToken.None).ConfigureAwait(true);
+            await action(OperationTimeout, CancellationToken.None);
         }
         catch (Exception ex)
         {

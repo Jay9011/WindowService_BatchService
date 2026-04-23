@@ -77,7 +77,7 @@ public class AsyncRelayCommand : ICommand
         IsExecuting = true;
         try
         {
-            await _execute(parameter).ConfigureAwait(true);
+            await _execute(parameter);
         }
         finally
         {

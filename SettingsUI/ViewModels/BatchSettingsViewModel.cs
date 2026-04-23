@@ -170,8 +170,7 @@ public class BatchSettingsViewModel : ViewModelBase
         {
             var settings = _getDbSettings();
             var result = await _connectionService
-                .TryGetBatchListCountAsync(settings, _procedureName)
-                .ConfigureAwait(true);
+                .TryGetBatchListCountAsync(settings, _procedureName);
 
             LoadSucceeded = result.IsSuccess;
             LoadResult = result.IsSuccess

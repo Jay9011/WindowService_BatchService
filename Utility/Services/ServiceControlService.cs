@@ -101,8 +101,8 @@ namespace Utility.Services
         public async Task RestartAsync(TimeSpan timeout, CancellationToken cancellationToken = default)
         {
             var half = TimeSpan.FromTicks(timeout.Ticks / 2);
-            await StopAsync(half, cancellationToken).ConfigureAwait(false);
-            await StartAsync(half, cancellationToken).ConfigureAwait(false);
+            await StopAsync(half, cancellationToken);
+            await StartAsync(half, cancellationToken);
         }
 
         #region Private Methods

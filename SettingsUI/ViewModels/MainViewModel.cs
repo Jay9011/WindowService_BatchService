@@ -69,13 +69,13 @@ public class MainViewModel : ViewModelBase
 
         try
         {
-            await _store.EnsureInitializedAsync().ConfigureAwait(true);
+            await _store.EnsureInitializedAsync();
 
-            var options = await _store.LoadBatchOptionsAsync().ConfigureAwait(true);
+            var options = await _store.LoadBatchOptionsAsync();
             Database.Load(options.Database);
             Batch.Load(options.BatchJob);
 
-            var levels = await _store.LoadLogLevelsAsync().ConfigureAwait(true);
+            var levels = await _store.LoadLogLevelsAsync();
             Logging.Load(levels);
 
             Service.Refresh();
@@ -130,8 +130,8 @@ public class MainViewModel : ViewModelBase
                 BatchJob = Batch.ToOptions(),
             };
 
-            await _store.SaveBatchOptionsAsync(options).ConfigureAwait(true);
-            await _store.SaveLogLevelsAsync(Logging.ToLevels()).ConfigureAwait(true);
+            await _store.SaveBatchOptionsAsync(options);
+            await _store.SaveLogLevelsAsync(Logging.ToLevels());
 
             StatusMessage = UiStrings.MessageSaveSuccess + " / " + UiStrings.MessageWorkerWillReload;
 

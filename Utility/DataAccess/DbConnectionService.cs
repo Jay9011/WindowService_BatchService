@@ -42,8 +42,7 @@ namespace Utility.DataAccess
             {
                 var result = await DbDALFactory
                     .CreateCoreDal(_databaseType)
-                    .TestConnectionAsync(connectionInfo.ToConnectionString())
-                    .ConfigureAwait(false);
+                    .TestConnectionAsync(connectionInfo.ToConnectionString());
 
                 return result.IsSuccess
                     ? DbConnectionTestResult.Success(result.Message ?? string.Empty)
@@ -81,8 +80,7 @@ namespace Utility.DataAccess
                         connectionInfo.ToConnectionString(),
                         procedureName,
                         (Dictionary<string, object>)null,
-                        false)
-                    .ConfigureAwait(false))
+                        false))
                 {
                     if (!result.IsSuccess)
                     {

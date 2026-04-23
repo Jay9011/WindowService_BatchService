@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using BatchService.Services;
 using Microsoft.Extensions.Options;
 using Utility.Settings;
 
@@ -5,20 +7,19 @@ namespace BatchService;
 
 public class Worker : BackgroundService
 {
+    private static readonly TimeSpan MinPollingInterval = TimeSpan.FromMilliseconds(250);
+
     private readonly ILogger<Worker> _logger;
     private readonly IOptionsMonitor<BatchServiceOptions> _options;
-    private readonly IServiceScopeFactory _scopeFactory;
+    private readonly IBatchExecutionService _executionService;
 
-    /// <summary>
-    /// Option Change Subscription Monitor Listener Object
-    /// </summary>
     private IDisposable? _changeSubscription;
 
-    public Worker(ILogger<Worker> logger, IOptionsMonitor<BatchServiceOptions> options, IServiceScopeFactory scopeFactory)
+    public Worker(ILogger<Worker> logger, IOptionsMonitor<BatchServiceOptions> options, IBatchExecutionService executionService)
     {
         _logger = logger;
         _options = options;
-        _scopeFactory = scopeFactory;
+        _executionService = executionService;
     }
 
     public override Task StartAsync(CancellationToken cancellationToken)
@@ -37,26 +38,59 @@ public class Worker : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            var currentOptions = _options.CurrentValue;
-            using var scope = _scopeFactory.CreateScope();
-            // var repository = scope.ServiceProvider.GetRequiredService<IBatchSettingsRepository>();
+            var tickStart = Stopwatch.GetTimestamp();
 
             try
             {
-                // var settings = await repository.GetBatchSettingsAsync(currentOptions.Database, currentOptions.BatchJob.ProcedureName, stoppingToken);
-
-
+                await _executionService.RunDueAsync(stoppingToken);
             }
-            catch (Exception e)
+            catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
             {
-                _logger.LogError(e, e.Message);
+                break;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Batch tick failed unexpectedly");
             }
 
-            await Task.Delay(currentOptions.BatchJob.PollingInterval, stoppingToken);
+            // ================================================
+            // ==> Polling Interval
+            // ================================================
+            var interval = ClampPollingInterval(_options.CurrentValue.BatchJob.PollingInterval);
+            var elapsed = Stopwatch.GetElapsedTime(tickStart);
+            var remaining = interval - elapsed;
+
+            if (remaining <= TimeSpan.Zero)
+            {
+                await Task.Yield();
+                continue;
+            }
+
+            try
+            {
+                await Task.Delay(remaining, stoppingToken);
+            }
+            catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+            {
+                break;
+            }
+            // ================================================
+            // <== Polling Interval
+            // ================================================
         }
     }
 
     #region Private Methods
+
+    /// <summary>
+    /// Clamps the polling interval.
+    /// </summary>
+    /// <param name="configured">The configured polling interval.</param>
+    /// <returns>The clamped polling interval.</returns>
+    private static TimeSpan ClampPollingInterval(TimeSpan configured)
+    {
+        return configured < MinPollingInterval ? MinPollingInterval : configured;
+    }
 
     /// <summary>
     /// Options Changed Event Handler
@@ -64,28 +98,20 @@ public class Worker : BackgroundService
     /// <param name="options">Batch Service Options</param>
     private void OnOptionsChanged(BatchServiceOptions options)
     {
-        var server = options.Database?.Server ?? string.Empty;
-        var database = options.Database?.Database ?? string.Empty;
-        var userId = options.Database?.UserId ?? string.Empty;
-        var integrated = options.Database?.IntegratedSecurity ?? false;
-        var procedure = options.BatchJob?.ProcedureName ?? string.Empty;
-        var polling = options.BatchJob?.PollingInterval ?? TimeSpan.Zero;
-
         _logger.LogInformation(
-            "Options changed: Server={Server}, Database={Database}, UserId={UserId}, IntegratedSecurity={IntegratedSecurity}, Procedure={Procedure}, PollingInterval={PollingInterval}",
-            server,
-            database,
-            MaskUserId(userId),
-            integrated,
-            procedure,
-            polling);
+            "Options changed: Server={Server}, Database={Database}, UserId={UserId}, IntegratedSecurity={IntegratedSecurity}, Procedure={Procedure}, PollingInterval={PollingInterval}, MaxConcurrency={MaxConcurrency}",
+            options.Database?.Server ?? string.Empty,
+            options.Database?.Database ?? string.Empty,
+            MaskUserId(options.Database?.UserId ?? string.Empty),
+            options.Database?.IntegratedSecurity ?? false,
+            options.BatchJob?.ProcedureName ?? string.Empty,
+            options.BatchJob?.PollingInterval ?? TimeSpan.Zero,
+            options.BatchJob?.MaxConcurrency ?? 0);
     }
 
     /// <summary>
     /// Masking the UserId
     /// </summary>
-    /// <param name="userId">The UserId to mask.</param>
-    /// <returns>The masked UserId.</returns>
     private static string MaskUserId(string userId)
     {
         if (string.IsNullOrEmpty(userId))
