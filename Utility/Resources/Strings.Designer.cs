@@ -79,6 +79,15 @@ namespace Utility.Resources {
         }
         
         /// <summary>
+        ///   Install과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ButtonInstallService {
+            get {
+                return ResourceManager.GetString("ButtonInstallService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Load Batch List과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string ButtonLoadBatchList {
@@ -129,6 +138,15 @@ namespace Utility.Resources {
         public static string ButtonStop {
             get {
                 return ResourceManager.GetString("ButtonStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Uninstall과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ButtonUninstallService {
+            get {
+                return ResourceManager.GetString("ButtonUninstallService", resourceCulture);
             }
         }
         
@@ -565,11 +583,47 @@ namespace Utility.Resources {
         }
         
         /// <summary>
+        ///   Batch service binary not found: {0}과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ServiceBinaryNotFoundFormat {
+            get {
+                return ResourceManager.GetString("ServiceBinaryNotFoundFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Runs scheduled batches defined in the BatchList table.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ServiceDescription {
+            get {
+                return ResourceManager.GetString("ServiceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   SECUiDEA Batch Service과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string ServiceDisplayName {
             get {
                 return ResourceManager.GetString("ServiceDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Install failed (exit {0}): {1}과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ServiceInstallFailedFormat {
+            get {
+                return ResourceManager.GetString("ServiceInstallFailedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Uninstall failed (exit {0}): {1}과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string ServiceUninstallFailedFormat {
+            get {
+                return ResourceManager.GetString("ServiceUninstallFailedFormat", resourceCulture);
             }
         }
         

@@ -30,6 +30,11 @@
         /// </summary>
         public const string Key_ServiceName = "SECUiDEA.BatchService";
 
+        /// <summary>
+        /// Expected file name of the Batch Service executable (same folder as SettingsUI.exe).
+        /// </summary>
+        public const string Key_ServiceBinaryFileName = "BatchService.exe";
+
         #region AppSettings Keys
 
         public const string MainConfigFileName = "appsettings.json";

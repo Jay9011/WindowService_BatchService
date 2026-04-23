@@ -11,6 +11,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -22,7 +23,7 @@
         <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,4" FontWeight="SemiBold"
                    Text="{Binding StatusDisplay}" />
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,12">
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,12,0,4">
             <Button Content="{x:Static res:Strings.ButtonStart}" Command="{Binding StartCommand}"
                     Padding="16,4" Margin="0,0,8,0" />
             <Button Content="{x:Static res:Strings.ButtonStop}" Command="{Binding StopCommand}"
@@ -31,7 +32,14 @@
                     Padding="16,4" />
         </StackPanel>
 
-        <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,8" Foreground="Red"
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,4,0,8">
+            <Button Content="{x:Static res:Strings.ButtonInstallService}" Command="{Binding InstallCommand}"
+                    Padding="16,4" Margin="0,0,8,0" />
+            <Button Content="{x:Static res:Strings.ButtonUninstallService}" Command="{Binding UninstallCommand}"
+                    Padding="16,4" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,8" Foreground="Red"
                    Text="{Binding LastError}" TextWrapping="Wrap" />
     </Grid>
 </UserControl>

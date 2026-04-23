@@ -1,12 +1,16 @@
-﻿using System.Windows.Input;
+﻿using System.Globalization;
+using System.IO;
+using System.Windows.Input;
 using System.Windows.Threading;
 using SettingsUI.Infrastructure;
+using Utility.Common;
+using Utility.Resources;
 using Utility.Services;
 
 namespace SettingsUI.ViewModels;
 
 /// <summary>
-/// Polls the Windows service status periodically and exposes Start/Stop/Restart commands.
+/// Polls the Windows service status periodically and exposes Start/Stop/Restart/Install/Uninstall commands.
 /// </summary>
 public class ServiceControlViewModel : ViewModelBase, IDisposable
 {
@@ -52,6 +56,8 @@ public class ServiceControlViewModel : ViewModelBase, IDisposable
     public ICommand StopCommand { get; }
     public ICommand RestartCommand { get; }
     public ICommand RefreshCommand { get; }
+    public ICommand InstallCommand { get; }
+    public ICommand UninstallCommand { get; }
 
     public ServiceControlViewModel() : this(new ServiceControlService())
     {
@@ -68,6 +74,8 @@ public class ServiceControlViewModel : ViewModelBase, IDisposable
         StopCommand = new AsyncRelayCommand(() => RunAsync(_controller.StopAsync), CanStop);
         RestartCommand = new AsyncRelayCommand(() => RunAsync(_controller.RestartAsync), CanRestart);
         RefreshCommand = new RelayCommand((Action)Refresh);
+        InstallCommand = new AsyncRelayCommand(InstallAsync, CanInstall);
+        UninstallCommand = new AsyncRelayCommand(UninstallAsync, CanUninstall);
         // ================================================
         // <== Setting Commands
         // ================================================
@@ -109,23 +117,21 @@ public class ServiceControlViewModel : ViewModelBase, IDisposable
 
     #region Private Methods
 
-    /// <summary>
-    /// Check if the service can be started.
-    /// </summary>
-    /// <returns>True if the service can be started, false otherwise.</returns>
     private bool CanStart() => _status == EServiceStatus.Stopped || _status == EServiceStatus.Paused;
 
-    /// <summary>
-    /// Check if the service can be stopped.
-    /// </summary>
-    /// <returns>True if the service can be stopped, false otherwise.</returns>
     private bool CanStop() => _status == EServiceStatus.Running || _status == EServiceStatus.Paused;
 
-    /// <summary>
-    /// Check if the service can be restarted.
-    /// </summary>
-    /// <returns>True if the service can be restarted, false otherwise.</returns>
     private bool CanRestart() => CanStop();
+
+    /// <summary>
+    /// Install is only valid when the service is not yet registered.
+    /// </summary>
+    private bool CanInstall() => _status == EServiceStatus.NotInstalled;
+
+    /// <summary>
+    /// Uninstall requires the service to be stopped; otherwise sc.exe only marks it for deletion.
+    /// </summary>
+    private bool CanUninstall() => _status == EServiceStatus.Stopped;
 
     /// <summary>
     /// Run the asynchronous action.
@@ -149,11 +155,83 @@ public class ServiceControlViewModel : ViewModelBase, IDisposable
         }
     }
 
+    /// <summary>
+    /// Installs the service.
+    /// </summary>
+    private async Task InstallAsync()
+    {
+        LastError = string.Empty;
+
+        try
+        {
+            var binPath = Path.Combine(AppContext.BaseDirectory, Keys.Key_ServiceBinaryFileName);
+            if (!File.Exists(binPath))
+            {
+                LastError = string.Format(CultureInfo.CurrentCulture, Strings.ServiceBinaryNotFoundFormat, binPath);
+                return;
+            }
+
+            var options = new ServiceInstallOptions
+            {
+                BinaryPath = binPath,
+                DisplayName = Strings.ServiceDisplayName,
+                Description = Strings.ServiceDescription,
+                StartType = EServiceStartType.Auto,
+            };
+
+            var result = await _controller.InstallAsync(options);
+            if (!result.IsSuccess)
+            {
+                LastError = string.Format(
+                    CultureInfo.CurrentCulture,
+                    Strings.ServiceInstallFailedFormat,
+                    result.ExitCode,
+                    result.Output);
+            }
+        }
+        catch (Exception ex)
+        {
+            LastError = ex.Message;
+        }
+        finally
+        {
+            Refresh();
+        }
+    }
+
+    /// <summary>
+    /// Uninstalls the service.
+    /// </summary>
+    private async Task UninstallAsync()
+    {
+        LastError = string.Empty;
+
+        try
+        {
+            var result = await _controller.UninstallAsync();
+            if (!result.IsSuccess)
+            {
+                LastError = string.Format(
+                    CultureInfo.CurrentCulture,
+                    Strings.ServiceUninstallFailedFormat,
+                    result.ExitCode,
+                    result.Output);
+            }
+        }
+        catch (Exception ex)
+        {
+            LastError = ex.Message;
+        }
+        finally
+        {
+            Refresh();
+        }
+    }
+
     #endregion
 
     public void Dispose()
     {
         StopPolling();
     }
-
 }

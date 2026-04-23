@@ -123,6 +123,12 @@
   <data name="ButtonCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ButtonInstallService" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="ButtonUninstallService" xml:space="preserve">
+    <value>Uninstall</value>
+  </data>
   <data name="ButtonLoadBatchList" xml:space="preserve">
     <value>Load Batch List</value>
   </data>
@@ -285,8 +291,20 @@
   <data name="ResultSuccess" xml:space="preserve">
     <value>Success</value>
   </data>
+  <data name="ServiceDescription" xml:space="preserve">
+    <value>Runs scheduled batches defined in the BatchList table.</value>
+  </data>
   <data name="ServiceDisplayName" xml:space="preserve">
     <value>SECUiDEA Batch Service</value>
+  </data>
+  <data name="ServiceBinaryNotFoundFormat" xml:space="preserve">
+    <value>Batch service binary not found: {0}</value>
+  </data>
+  <data name="ServiceInstallFailedFormat" xml:space="preserve">
+    <value>Install failed (exit {0}): {1}</value>
+  </data>
+  <data name="ServiceUninstallFailedFormat" xml:space="preserve">
+    <value>Uninstall failed (exit {0}): {1}</value>
   </data>
   <data name="StatusAccessDenied" xml:space="preserve">
     <value>Access Denied</value>

@@ -123,11 +123,17 @@
   <data name="ButtonCancel" xml:space="preserve">
     <value>취소</value>
   </data>
+  <data name="ButtonInstallService" xml:space="preserve">
+    <value>설치</value>
+  </data>
+  <data name="ButtonUninstallService" xml:space="preserve">
+    <value>제거</value>
+  </data>
   <data name="ButtonLoadBatchList" xml:space="preserve">
     <value>배치 미리 불러보기</value>
   </data>
   <data name="ButtonReload" xml:space="preserve">
-    <value>초기화</value>
+    <value>새로고침</value>
   </data>
   <data name="ButtonRestart" xml:space="preserve">
     <value>재시작</value>
@@ -285,8 +291,20 @@
   <data name="ResultSuccess" xml:space="preserve">
     <value>성공</value>
   </data>
+  <data name="ServiceDescription" xml:space="preserve">
+    <value>BatchList 테이블에 정의된 예약 배치를 실행합니다.</value>
+  </data>
   <data name="ServiceDisplayName" xml:space="preserve">
     <value>SECUiDEA 배치 서비스</value>
+  </data>
+  <data name="ServiceBinaryNotFoundFormat" xml:space="preserve">
+    <value>배치 서비스 실행 파일을 찾을 수 없습니다: {0}</value>
+  </data>
+  <data name="ServiceInstallFailedFormat" xml:space="preserve">
+    <value>설치 실패 (exit {0}): {1}</value>
+  </data>
+  <data name="ServiceUninstallFailedFormat" xml:space="preserve">
+    <value>제거 실패 (exit {0}): {1}</value>
   </data>
   <data name="StatusAccessDenied" xml:space="preserve">
     <value>접근 거부 됨</value>

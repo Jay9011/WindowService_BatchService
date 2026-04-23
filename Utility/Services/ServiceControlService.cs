@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.ServiceProcess;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Utility.Common;
@@ -105,6 +107,52 @@ namespace Utility.Services
             await StartAsync(half, cancellationToken);
         }
 
+        /// <summary>
+        /// Installs the Windows service via <c>sc.exe create</c>. Requires administrator privileges.
+        /// </summary>
+        public Task<ServiceCommandResult> InstallAsync(ServiceInstallOptions options, CancellationToken cancellationToken = default)
+        {
+            if (options == null) throw new ArgumentNullException(nameof(options));
+
+            if (string.IsNullOrWhiteSpace(options.BinaryPath))
+            {
+                throw new ArgumentException("Binary path is required.", nameof(options));
+            }
+
+            return Task.Run(async () =>
+            {
+                var createArgs = BuildCreateArguments(options);
+                var createResult = RunSc(createArgs);
+                if (!createResult.IsSuccess)
+                {
+                    return createResult;
+                }
+
+                if (!string.IsNullOrEmpty(options.Description))
+                {
+                    var descArgs = "description " + Quote(_serviceName) + " " + Quote(options.Description!);
+                    RunSc(descArgs);
+                }
+
+                await Task.CompletedTask;
+
+                return createResult;
+            }, cancellationToken);
+        }
+
+        /// <summary>
+        /// Uninstalls the Windows service via <c>sc.exe delete</c>. Requires administrator privileges.
+        /// The service must be stopped first; otherwise Windows only marks it for deletion.
+        /// </summary>
+        public Task<ServiceCommandResult> UninstallAsync(CancellationToken cancellationToken = default)
+        {
+            return Task.Run(() =>
+            {
+                var args = "delete " + Quote(_serviceName);
+                return RunSc(args);
+            }, cancellationToken);
+        }
+
         #region Private Methods
 
         /// <summary>
@@ -124,6 +172,82 @@ namespace Utility.Services
                 case ServiceControllerStatus.ContinuePending: return EServiceStatus.ContinuePending;
                 case ServiceControllerStatus.PausePending: return EServiceStatus.PausePending;
                 default: return EServiceStatus.Unknown;
+            }
+        }
+
+        /// <summary>
+        /// Build <c>sc create</c> argument string (no process invocation yet).
+        /// </summary>
+        private string BuildCreateArguments(ServiceInstallOptions options)
+        {
+            var sb = new StringBuilder();
+            sb.Append("create ").Append(Quote(_serviceName));
+            sb.Append(" binPath= ").Append(Quote(options.BinaryPath));
+            sb.Append(" start= ").Append(ToScStart(options.StartType));
+            if (!string.IsNullOrEmpty(options.DisplayName))
+            {
+                sb.Append(" DisplayName= ").Append(Quote(options.DisplayName!));
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Runs <c>sc.exe</c> synchronously and captures stdout/stderr. Always returns a result,
+        /// never throws for non-zero exit codes (caller inspects <see cref="ServiceCommandResult.IsSuccess"/>).
+        /// </summary>
+        private static ServiceCommandResult RunSc(string arguments)
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = "sc.exe",
+                Arguments = arguments,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+            };
+
+            using (var process = new Process { StartInfo = psi })
+            {
+                process.Start();
+                var stdout = process.StandardOutput.ReadToEnd();
+                var stderr = process.StandardError.ReadToEnd();
+                process.WaitForExit();
+
+                var output = string.IsNullOrEmpty(stderr)
+                    ? stdout
+                    : (string.IsNullOrEmpty(stdout) ? stderr : stdout + Environment.NewLine + stderr);
+
+                return new ServiceCommandResult
+                {
+                    ExitCode = process.ExitCode,
+                    IsSuccess = process.ExitCode == 0,
+                    Output = (output ?? string.Empty).Trim(),
+                };
+            }
+        }
+
+        /// <summary>
+        /// Wraps a value in double-quotes, escaping any internal quotes (<c>"</c> → <c>\"</c>).
+        /// </summary>
+        private static string Quote(string value)
+        {
+            if (value == null) return "\"\"";
+            return "\"" + value.Replace("\"", "\\\"") + "\"";
+        }
+
+        /// <summary>
+        /// Maps <see cref="EServiceStartType"/> to the <c>sc.exe</c> start= token.
+        /// </summary>
+        private static string ToScStart(EServiceStartType startType)
+        {
+            switch (startType)
+            {
+                case EServiceStartType.DelayedAuto: return "delayed-auto";
+                case EServiceStartType.Manual: return "demand";
+                case EServiceStartType.Disabled: return "disabled";
+                case EServiceStartType.Auto:
+                default: return "auto";
             }
         }
 
